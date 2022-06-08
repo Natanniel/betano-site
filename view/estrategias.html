@@ -42,6 +42,16 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
                             <option value="" selected>Selecionar estratégia...</option>
                             <option value="r-v">Repetição do vermelho</option>
                             <option value="r-p">Repetição do preto</option>
+                            <option value="r-np">Repetição de numeros pares</option>
+                            <option value="r-ni">Repetição de numeros impares</option>
+                            <option value="r-na">Repetição de numeros altos</option>
+                            <option value="r-nb">Repetição de numeros baixos</option>
+                            <option value="r-d1">Repetição 1° duzia</option>
+                            <option value="r-d2">Repetição 2° duzia</option>
+                            <option value="r-d3">Repetição 3° duzia</option>
+                            <option value="r-c1">Repetição 1° coluna</option>
+                            <option value="r-c2">Repetição 2° coluna</option>
+                            <option value="r-c3">Repetição 3° coluna</option>
                         </select>
                     </div>
                     <div class="mb-3">
@@ -50,6 +60,22 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
                             <option value="" selected>Selecionar aposta ...</option>
                             <option value="a-v">Apostar no vermelho</option>
                             <option value="a-p">Apostar no preto</option>
+                            <option value="a-np">Apostar em numeros pares</option>
+                            <option value="a-ni">Apostar em numeros impares</option>
+                            <option value="a-na">Apostar em numeros altos</option>
+                            <option value="a-nb">Apostar em numeros baixos</option>
+                            <option value="a-d1">Apostar 1° duzia</option>
+                            <option value="a-d2">Apostar 2° duzia</option>
+                            <option value="a-d3">Apostar 3° duzia</option>
+                            <option value="a-d1d2">Apostar 1° e 2° duzia</option>
+                            <option value="a-d2d3">Apostar 2° e 3° duzia</option>
+                            <option value="a-d1d3">Apostar 1° e 3° duzia</option>
+                            <option value="a-c1">Apostar 1° coluna</option>
+                            <option value="a-c2">Apostar 2° coluna</option>
+                            <option value="a-c3">Apostar 3° coluna</option>
+                            <option value="a-c1c2">Apostar 1° e 2° coluna</option>
+                            <option value="a-c2c3">Apostar 2° e 3° coluna</option>
+                            <option value="a-c1c3">Apostar 1° e 3° coluna</option>
                         </select>
                     </div>
                     <div class="mb-3">
@@ -64,7 +90,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button id="fechar-modal" type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                    <button id="fechar-modal" type="button" class="btn btn-danger"
+                        data-bs-dismiss="modal">Cancelar</button>
                     <button id="salvar" type="button" class="btn btn-primary">Salvar</button>
                 </div>
             </div>
@@ -123,7 +150,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
                                 </div>
                             </div>
                         </div>
-                       
+
                     </div>
                 </div>
                 <hr class="bg-primary">
@@ -147,42 +174,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
                                 <th scope="col">Status</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <!--exemplo sinal e status 1-->
-                            <tr>
-                                <td>
-                                    <span class="badge bg-primary fs-6 cursor-pointer" data-bs-toggle="modal"
-                                        data-bs-target="#edit-estrategies"><i class="bi bi-pencil-square"></i></span>
-                                </td>
-                                <td>Repetição 1º duzia</td>
-                                <td>2º e 3º duzia</td>
-                                <td>6</td>
-                                <td>7</td>
-                                <td><i class="bi bi-bookmark-check-fill text-success"></i></td>
-                                <td><i class="bi bi-check-circle-fill text-success"></i></td>
-                            </tr>
-                            <!--exemplo sinal e status 2-->
-                            <tr>
-                                <td><span class="badge bg-primary fs-6 cursor-pointer"><i
-                                            class="bi bi-pencil-square"></i></span></td>
-                                <td>Repetição 1º duzia</td>
-                                <td>2º e 3º duzia</td>
-                                <td>6</td>
-                                <td>7</td>
-                                <td><i class="bi bi-bookmark-dash-fill text-warning"></i></td>
-                                <td><i class="bi bi-dash-circle-fill text-warning"></i></td>
-                            </tr>
-                            <!--exemplo sinal e status 3-->
-                            <tr>
-                                <td><span class="badge bg-primary fs-6 cursor-pointer"><i
-                                            class="bi bi-pencil-square"></i></span></td>
-                                <td>Repetição 1º duzia</td>
-                                <td>2º e 3º duzia</td>
-                                <td>6</td>
-                                <td>7</td>
-                                <td><i class="bi bi-bookmark-x-fill text-danger"></i></td>
-                                <td><i class="bi bi-x-circle-fill text-danger"></i></td>
-                            <tr>
+                        <tbody id="listagem">
+
                         </tbody>
                     </table>
                 </div>
@@ -196,20 +189,176 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
 
         let cadastrando = false
 
-        function selecionaDados(){
+        function selecionaDados() {
+
+            $.get("http://192.99.105.59:3000/estrategia", function (dados) {
+
+                let listagem = "";
+
+                for (i in dados) {
+                    let estrategia = "";
+                    let aposta = ""
+
+                    // Analisa estrategia ======================================================
+                    switch (dados[i].estrategia) {
+                        case "r-v":
+                            estrategia = "Repetição do vermelho";
+                            break;
+                        case "r-p":
+                            estrategia = "Repetição do preto";
+                            break;
+
+                        case "r-np":
+                            estrategia = "Repetição de páres";
+                            break;
+                        case "r-ni":
+                            estrategia = "Repetição de ímpares";
+                            break;
+
+                        case "r-na":
+                            estrategia = "Repetição de altos";
+                            break;
+
+                        case "r-nb":
+                            estrategia = "Repetição de baixos";
+                            break;
+
+                        case "r-d1":
+                            estrategia = "Repetição 1° duzia";
+                            break;
+
+                        case "r-d2":
+                            estrategia = "Repetição 2° duzia";
+                            break;
+
+                        case "r-d3":
+                            estrategia = "Repetição 3° duzia";
+                            break;
+
+                        case "r-c1":
+                            estrategia = "Repetição 1° coluna";
+                            break;
+
+                        case "r-c2":
+                            estrategia = "Repetição 2° coluna";
+                            break;
+
+                        case "r-c3":
+                            estrategia = "Repetição 3° coluna";
+                            break;
+                    }
+
+
+
+                    // Analisa aposta ======================================================
+                    switch (dados[i].aposta) {
+                        case "a-v":
+                            aposta = "Apostar no vermelho";
+                            break;
+                        case "a-p":
+                            aposta = "Apostar no preto";
+                            break;
+
+                        case "a-np":
+                            aposta = "Apostar em numeros pares";
+                            break;
+
+                        case "a-ni":
+                            aposta = "Apostar em numeros ímpares";
+                            break;
+
+                        case "a-na":
+                            aposta = "Apostar em numeros altos";
+                            break;
+
+                        case "a-nb":
+                            aposta = "Apostar em numeros baixos";
+                            break;
+
+
+                        case "a-d1":
+                            aposta = "Apostar em 1° duzia";
+                            break;
+
+                        case "a-d2":
+                            aposta = "Apostar em 2° duzia";
+                            break;
+                        case "a-d3":
+                            aposta = "Apostar em 3° duzia";
+                            break;
+
+                        case "a-d1d2":
+                            aposta = "Apostar 1° e 2° duzia";
+                            break;
+
+                        case "a-d2d3":
+                            aposta = "Apostar 2° e 3° duzia";
+                            break;
+
+                        case "a-d1d3":
+                            aposta = "Apostar 1° e 3° duzia";
+                            break;
+
+                        case "a-d1":
+                            aposta = "Apostar em 1° coluna";
+                            break;
+
+                        case "a-d2":
+                            aposta = "Apostar em 2° coluna";
+                            break;
+                        case "a-d3":
+                            aposta = "Apostar em 3° coluna";
+                            break;
+
+                        case "a-d1d2":
+                            aposta = "Apostar 1° e 2° coluna";
+                            break;
+
+                        case "a-d2d3":
+                            aposta = "Apostar 2° e 3° coluna";
+                            break;
+
+                        case "a-d1d3":
+                            aposta = "Apostar 1° e 3° coluna";
+                            break;
+                    }
+
+
+                    listagem += "<tr><td><span id=" + dados[i]._id + " class='btn-editar badge bg-primary fs-6 cursor-pointer' data-bs-toggle='modal' data-bs-target='#add-estrategies'><i class='bi bi-pencil-square'></i></span></td>";
+                    listagem += "<td>" + estrategia + "</td><td>" + aposta + "</td><td>" + dados[i].analise + "</td><td>" + dados[i].confirma + "</td><td><i class='bi bi-bookmark-check-fill text-success'></i></td><td><i class='bi bi-check-circle-fill text-success'></i></td></tr>";
+
+
+                }
+
+                $("#listagem").html(listagem)
+
+                $("#listagem").delegate(".btn-editar", "click", function (e) {
+                    $.get("http://192.99.105.59:3000/estrategia/" + e.currentTarget.id, function (dados) {
+
+                        $("#id").val(dados._id);
+                        $("#estrategia").val(dados.estrategia);
+                        $("#aposta").val(dados.aposta);
+                        $("#analise").val(dados.analise);
+                        $("#confirma").val(dados.confirma);
+                    })
+                });
+
+            })
 
         }
 
-        function cadastrar(){
+        function cadastrar() {
             let estrategia = {
-                id :  $("#id").val(),
-                estrategia : $("#estrategia").val(),
-                aposta : $("#aposta").val(),
-                analise : $("#analise").val(),
-                confirma : $("#confirma").val()
+                id: $("#id").val(),
+                estrategia: $("#estrategia").val(),
+                aposta: $("#aposta").val(),
+                analise: $("#analise").val(),
+                confirma: $("#confirma").val()
             }
 
-            $.post("http://localhost:3000/estrategia/cadastro",estrategia,function(){
+
+
+            $.post("http://192.99.105.59:3000/estrategia/cadastro", estrategia, function () {
                 alert("Cadastro realizado com sucesso !");
                 $("#id").val("");
                 $("#estrategia").val("");
@@ -217,11 +366,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
                 $("#analise").val("");
                 $("#confirma").val("");
                 $("#fechar-modal").click();
-                selecionaDados();            
+                selecionaDados();
             })
         }
 
-        selecionaDados();       
+        selecionaDados();
 
         $("#salvar").click(function () {
             if (cadastrando == false) {

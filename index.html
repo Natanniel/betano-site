@@ -78,9 +78,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
                 usuario, senha
             }
 
-            $.post("http://localhost:3000/usuarios/login",dados, function (data) {
+            $.post("http://192.99.105.59:3000/usuarios/login",dados, function (data) {
                 document.cookie = "betano_token=" + data;
-                window.location.href = "http://localhost/view/relatorios.html";
+                window.location.href = "http://192.99.105.59/view/relatorios.html";
             }).fail(function(xhr, status, error) {
                 alert("Usuario ou senha inválido");
             });

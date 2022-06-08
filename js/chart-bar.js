@@ -5,7 +5,7 @@ var myChart = new Chart(ctx, {
         labels: ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'],
         datasets: [{
                 label: 'Apostas',
-                data: [12, 19, 3, 5, 2, 3, 5],
+                data: [0, 0, 0, 0, 0, 0, 0],
                 backgroundColor: [
                     '#0d6efd'
 
