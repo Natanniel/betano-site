@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this template
+-->
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title></title>
+        <!--CSS-->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+        <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="../css/main.css" rel="stylesheet" type="text/css"/>
+        <link href="../css/navbar.css" rel="stylesheet" type="text/css"/>
+        <!--script de ícones bootstrap 5.1.3-->
+        <script src="../js/jquery.js" type="text/javascript"></script>
+        <!--scripts-->
+        <script src="https://unpkg.com/@popperjs/core@2.4.0/dist/umd/popper.min.js"></script>
+        <script src="../bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    </head>
+    <body>
+        <!-- Modal editar mensagens -->
+        <div class="modal fade" id="edit-messages" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content bg-greydark">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-white fw-light" id="staticBackdropLabel">Alterar título<i class="ms-2 bi bi-chat-dots"></i></h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-floating">
+                            <input class="form-control mb-1" placeholder="Editar mensagens" id="floatingTextarea2"/>
+                            <label for="floatingTextarea2">Título 1</label>
+                        </div>
+                        <div class="form-floating">
+                            <textarea class="form-control mb-1 custom-height-150px" placeholder="Editar mensagens" id="floatingTextarea2"></textarea>
+                            <label for="floatingTextarea2">Mensagem</label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary">Salvar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 w-100 bg-greydark fixed-top">
+            <div class="container">
+                <div class="col-auto" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                    <button class="btn btn-light border-0 rounded-0 fs-5 op-effect"><i class="bi bi-list"></i></button>
+                </div>
+            </div>
+        </div>
+        <!--barra de navegação lateral esquerda-->
+        <div class="offcanvas offcanvas-start bg-greydark" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+            <div class="offcanvas-header">
+                <img src="../files/img/logoeasymoney.jpg" class="easy-logo rounded-3 box-shadow-light">
+                <h4 class="text-white ms-3">Bem vindo(a)!</h4>
+                <button type="button" class="btn-close btn-close-white text-reset ms-auto" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body px-0">
+                <div class="tags">
+                    <a href="estrategias.html" class="open dropper btn btn-light hover-1 w-100 border-0 rounded-0 text-start mb-1">
+                        <i class="me-3 bi bi-graph-up-arrow"></i>Estratégias
+                    </a>
+                    <div class="no-underline open dropper btn btn-light hover-1 w-100 border-0 rounded-0 text-start mb-1">
+                        <i class="me-3 bi bi-record-circle"></i>Roletas<i class="bi bi-chevron-compact-down float-end me-2"></i>
+                    </div>
+                    <!--dropdown do item acima-->
+                    <div class="category mb-1">
+                        <a href="roletas.html" class="open dropper btn btn-light hover-1 w-100 border-0 rounded-0 text-start mb-1">
+                            <i class="ms-4 me-2 bi bi-record-circle"></i>Roleta 1
+                        </a>
+                    </div>
+                    <a href="layout.html" class="open dropper btn btn-light hover-1 w-100 border-0 rounded-0 text-start mb-1">
+                        <i class="me-3 bi bi-chat-left-text"></i>Layouts
+                    </a>
+                    <div class="no-underline open dropper btn btn-light hover-1 w-100 border-0 rounded-0 text-start mb-1">
+                        <i class="me-3 bi bi-people"></i>Grupos<i class="bi bi-chevron-compact-down float-end me-2"></i>
+                    </div>
+                    <!--dropdown do item acima-->
+                    <div class="category mb-1">
+                        <a href="grupos.html" class="open dropper btn btn-light hover-1 w-100 border-0 rounded-0 text-start mb-1">
+                            <i class="ms-4 me-2 bi bi bi-people"></i>Grupo 1
+                        </a>
+                    </div>
+                    <a href="relatorios.html" class="open dropper btn btn-light hover-1 w-100 border-0 rounded-0 text-start mb-1">
+                        <i class="me-3 bi bi-speedometer2"></i>Relatórios
+                    </a>
+                    <a href="sistema.html" class="open dropper btn btn-light hover-1 w-100 border-0 rounded-0 text-start mb-1">
+                        <i class="me-3 bi bi-terminal"></i>Sistema
+                    </a>
+                    <a href="admin.html" class="open dropper btn btn-light hover-1 w-100 border-0 rounded-0 text-start mb-1">
+                        <i class="me-3 bi bi-person-check"></i>Admnistradores
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!--corpo da página-->
+        <div class="container mt-5">
+            <div class="row">
+                <p class="fs-5 fw-light text-black mb-0 mt-4">Mensagens Estratégicas<i class="ms-2 bi bi-chat-dots"></i></p>
+            </div>
+            <hr class="bg-primary">
+            <div class="row">
+                <!-- legendas e sinais-->
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-12">
+                            <p class="fs-6 fw-light">Legendas de sinais e status</p>
+                        </div>
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-md-3 col-lg-2 mb-xs-2">
+                                    <div class="bg-light box-shadow rounded-3 p-2">
+                                        <i class="bi bi-bookmark-check-fill text-success"></i>
+                                        <i class="bi bi-check-circle-fill text-success"></i>
+                                        <span class="fs-6 fw-bold float-end">Ok</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-lg-2 mb-xs-2">
+                                    <div class="bg-light box-shadow rounded-3 p-2">
+                                        <i class="bi bi-bookmark-dash-fill text-warning"></i>
+                                        <i class="bi bi-dash-circle-fill text-warning"></i>
+                                        <span class="fs-6 fw-bold float-end">Atenção</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-lg-2 mb-xs-2">
+                                    <div class="bg-light box-shadow rounded-3 p-2">
+                                        <i class="bi bi-bookmark-x-fill text-danger"></i>
+                                        <i class="bi bi-x-circle-fill text-danger"></i>
+                                        <span class="fs-6 fw-bold float-end">Aviso!</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="bg-primary">
+                            <div class="row">
+                                <p class="fs-6 fw-light text-black">Mensagens automáticas<i class="ms-2 bi bi-telegram"></i></p>
+                            </div>
+                            <div class="table-responsive rounded-3 box-shadow">
+                                <table class="table table-light table-hover align-middle table-responsive">
+                                    <thead>
+                                        <!--escopo da tabela-->
+                                        <tr>
+                                            <th scope="col"></th>
+                                            <th scope="col" class="custom-width-180px">Título</th>
+                                            <th scope="col" class="custom-width-180px">Mensagem</th>
+                                            <th scope="col">Grupo</th>
+                                            <th scope="col">Sinal</th>
+                                            <th scope="col">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!--exemplo sinal e status 1-->
+                                        <tr>
+                                            <td>
+                                                <span class="badge bg-primary fs-6 cursor-pointer" data-bs-toggle="modal" data-bs-target="#edit-messages"><i class="bi bi-pencil-square"></i></span>
+                                            </td>
+                                            <td class="text-wrap overflow-auto custom-width-180px">Título mensagem</td>
+                                            <td class="text-wrap overflow-auto custom-width-180px">Houve repetição 1º duzia, dica de aposta 1</td>
+                                            <td class="custom-width-180px">Grupo roletas 1</td>
+                                            <td><i class="bi bi-bookmark-check-fill text-success"></i></td>
+                                            <td><i class="bi bi-check-circle-fill text-success"></i></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <hr class="bg-primary">
+                            <div class="row p-0 my-1">
+                                <div class="col-12">
+                                    <p class="fs-6 fw-light">Alertas por grupo</p>
+                                </div>
+                                <div class="col-12 mt-3">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <span class="badge bg-success rounded-pill box-shadow fs-6 fw-light">Alerta 1</span>
+                                        </div>
+                                        <div class="col-12">
+
+                                            <div class="alert alert-success box-shadow my-2 p-1" role="alert">
+                                                <span>Padrão repetido, repetição 2º dúzia</span>
+                                                <i class="bi bi-bookmark-fill text-success ms-2"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <span class="badge alert-warning rounded-pill box-shadow fs-6 fw-light">Alerta 2</span>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="alert alert-warning box-shadow my-2 p-1" role="alert">
+                                                <span>Padrão não repetido, ajustar estratégia!</span>
+                                                <i class="bi bi-bookmark-fill text-warning ms-2"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <span class="badge bg-danger rounded-pill box-shadow fs-6 fw-light">Alerta 3</span>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="alert alert-danger box-shadow my-2 p-1" role="alert">
+                                                <span>Padrão não repetido, ajustar estratégia!</span>
+                                                <i class="bi bi-bookmark-fill text-danger ms-2"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                         
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </body>
+    <script>
+        $(function () {
+
+            //dropdowns script único
+
+            $(".category").hide();
+            $(".tags .dropper").addClass("open");
+
+            var cat_open = 0;
+
+            $(".tags .dropper").click(function () {
+                $(this).next('.category').animate({"height": "toggle"}, 500);
+            });
+        });
+    </script>
+
+</html>
